@@ -16,7 +16,11 @@ int main()
 
 	XORLIST<int> list2 = { 9, 81, 243, 1764 };
 
-	list.JoinTwoXORLists(list2);
+	//XORLIST<int> res = list + list2;
+
+	list += list2;
+
+	//list.JoinTwoXORLists(list2);
 
 	list.PrintFromStart();
 

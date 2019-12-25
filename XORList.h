@@ -84,6 +84,26 @@ public:
 		return currentNode;
 	}
 
+	Node<T>* GetNextNode(Node<T>* fromNode, Node<T>* previousNode) const
+	{
+		if (fromNode == nullptr)
+		{
+			return nullptr;
+		}
+
+		if (previousNode == nullptr)
+		{
+			if (begin == fromNode)
+			{
+				return begin->nodePointerXOR;
+			}
+
+			return nullptr;
+		}
+
+		return XOR_OfPointers(fromNode->nodePointerXOR, previousNode);
+	}
+
 public:
 	XORLIST()
 	{
@@ -180,14 +200,14 @@ public:
 		end = newNode;
 	}
 
-	bool InsertAfter(Node<T>* const afterNode, const T& data)
+	bool InsertAfter(Node<T>* const insertAfterNode, const T& data)
 	{
-		if (afterNode == nullptr)
+		if (insertAfterNode == nullptr)
 		{
 			return false;
 		}
 
-		if (afterNode == end)
+		if (insertAfterNode == end)
 		{
 			Append(data);
 			return true;
@@ -197,31 +217,31 @@ public:
 		Node<T>* lastTraversed = nullptr;
 
 		// we need to change the xor data of the next as well, because we know we are inserting between two existing elements
-		while (lastTraversed != afterNode && currentNode != nullptr)
+		while (lastTraversed != insertAfterNode && currentNode != nullptr)
 		{
 			Node<T>* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
 			lastTraversed = saveCurrentNode;
 		}
 
-		if (lastTraversed == afterNode)
+		if (lastTraversed == insertAfterNode)
 		{
 			Node<T>* newNode = new Node<T>;
 			newNode->data = data;
 
 			// set the xor of the new node
-			newNode->nodePointerXOR = XOR_OfPointers(afterNode, currentNode);
+			newNode->nodePointerXOR = XOR_OfPointers(insertAfterNode, currentNode);
 
 			// set the xor of the node after the newNode
-			currentNode->nodePointerXOR = XOR_OfPointers(currentNode->nodePointerXOR, XOR_OfPointers(afterNode, newNode));
+			currentNode->nodePointerXOR = XOR_OfPointers(currentNode->nodePointerXOR, XOR_OfPointers(insertAfterNode, newNode));
 
 			// set the xor of the node before the newNode
-			afterNode->nodePointerXOR = XOR_OfPointers(afterNode->nodePointerXOR, XOR_OfPointers(currentNode, newNode));
+			insertAfterNode->nodePointerXOR = XOR_OfPointers(insertAfterNode->nodePointerXOR, XOR_OfPointers(currentNode, newNode));
 
 			return true;
 		}
 
-		// afterNode is not in the list
+		// insertAfterNode is not in the list
 		return false;
 	}
 	
@@ -271,6 +291,21 @@ public:
 
 	void JoinTwoXORLists(const XORLIST& other)
 	{
+		Node<T>* otherCurrentNode = other.begin;
+		Node<T>* lastTraversedNode = nullptr;
+
+		while (otherCurrentNode != nullptr)
+		{
+			Append(otherCurrentNode->data);
+
+			Node<T>* saveCurrentNode = otherCurrentNode;
+			otherCurrentNode = XOR_OfPointers(lastTraversedNode, otherCurrentNode->nodePointerXOR);
+			lastTraversedNode = saveCurrentNode;
+		}
+	}
+
+	void JoinTwoXORLists(XORLIST&& other)
+	{
 		if (begin == nullptr)
 		{
 			return;
@@ -286,6 +321,8 @@ public:
 		other.begin->nodePointerXOR = XOR_OfPointers(other.begin->nodePointerXOR, end);
 
 		end = other.end;
+
+		other.end = other.begin = nullptr;
 	}
 
 	void PopBack()
@@ -518,3 +555,21 @@ public:
 		return std::move(result);
 	}
 };
+
+template<typename T>
+XORLIST<T> operator+(const XORLIST<T>& lhs, const XORLIST<T>& rhs)
+{
+	XORLIST<T> result;
+	result.JoinTwoXORLists(lhs);
+	result.JoinTwoXORLists(rhs);
+
+	return result;
+}
+
+template<typename T>
+void operator+=(XORLIST<T>& lhs, const XORLIST<T>& rhs)
+{
+	lhs.JoinTwoXORLists(rhs);
+
+	//return lhs;
+}
