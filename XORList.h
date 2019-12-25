@@ -16,10 +16,41 @@ private:
 	Node<T>* begin = nullptr;
 	Node<T>* end = nullptr;
 
-private:
 	Node<T>* XOR_OfPointers(Node<T>* a, Node<T>* b)
 	{
 		return (Node<T>*)((uintptr_t)(a) ^ (uintptr_t)(b));
+	}
+
+	void Copy(const XORLIST& other)
+	{
+		Node<T>* currentNode = other.begin;
+		Node<T>* lastNode = nullptr;
+
+		while (currentNode != nullptr)
+		{
+			Append(currentNode->data);
+
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
+			lastNode = saveCurrentNode;
+		}
+	}
+
+	void Delete()
+	{
+		Node<T>* currentNode = begin;
+		Node<T>* lastNode = nullptr;
+
+		while (currentNode != nullptr)
+		{
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
+			
+			// delete the current Node
+			delete lastNode;
+
+			lastNode = saveCurrentNode;
+		}
 	}
 
 public:
@@ -54,6 +85,32 @@ public:
 	}
 
 public:
+	XORLIST()
+	{
+
+	}
+
+	XORLIST(const XORLIST& other)
+	{
+		Copy(other);
+	}
+
+	~XORLIST()
+	{
+		Delete();
+	}
+
+	XORLIST& operator=(const XORLIST& rhs)
+	{
+		if (*this != rhs)
+		{
+			Delete();
+			Copy(rhs);
+		}
+
+		return *this;
+	}
+
 	void PrintFromStart()
 	{
 		Node<T>* currentNode = begin;

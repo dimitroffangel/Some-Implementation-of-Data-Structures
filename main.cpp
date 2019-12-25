@@ -27,5 +27,8 @@ int main()
 
 	list2.Prepend(112123);
 
+	list.PrintFromStart();
+	list2.PrintFromStart();
+
 	return 0;
 }
