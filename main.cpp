@@ -3,6 +3,10 @@
 
 int main()
 {
+	int* a = nullptr;
+
+	std::cout << sizeof(a);
+
 	XORLIST<int> list = { -20, 42, -19, -18 };
 	
 	list.InsertBefore(list.GetBegin(), 42);
@@ -12,7 +16,7 @@ int main()
 
 	XORLIST<int> list2 = { 9, 81, 243, 1764 };
 
-	list.JoinToXORLists(list2);
+	list.JoinTwoXORLists(list2);
 
 	list.PrintFromStart();
 
