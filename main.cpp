@@ -3,16 +3,16 @@
 
 int main()
 {
-	XORLIST<int> list = { -20,-19, -18 };
+	XORLIST<int> list = { -20, 42, -19, -18 };
 
 
-	//list.Prepend(1);
-	//list.Prepend(0);
-	//list.Append(2);
-	//list.InsertAfter(list.GetBegin(), 5);
-	//list.InsertAfter(list.GetEnd(), 62);
-	//list.InsertBefore(list.GetBegin(), -42);
-	//list.InsertBefore(list.GetEnd(), 42);
+	list.Prepend(1);
+	list.Prepend(0);
+	list.Append(2);
+	list.InsertAfter(list.GetBegin(), 5);
+	list.InsertAfter(list.GetEnd(), 62);
+	list.InsertBefore(list.GetBegin(), 42);
+	list.InsertBefore(list.GetEnd(), 42);
 
 	auto res = list.GetNextNode(list.GetEnd());
 
@@ -23,7 +23,11 @@ int main()
 
 	list.PrintFromStart();
 
-	XORLIST<int> list2 = list;
+	XORLIST<int> list2 = list.GetAllNodes(42);
+	
+	list.PrintFromStart();
+
+	list2.PrintFromStart();
 
 	list2.Prepend(112123);
 

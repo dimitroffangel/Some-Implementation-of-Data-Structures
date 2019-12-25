@@ -270,7 +270,7 @@ public:
 	}
 
 	// gets the first node, containing that element
-	bool GetElement(const T& element)
+	bool GetNode(const T& element)
 	{
 		Node<T>* currentNode = begin;
 		Node<T>* lastNode = nullptr;
@@ -283,5 +283,27 @@ public:
 		}
 
 		return currentNode;
+	}
+
+	XORLIST GetAllNodes(const T& element)
+	{
+		Node<T>* currentNode = begin;
+		Node<T>* lastNode = nullptr;
+
+		XORLIST result;
+
+		while (currentNode != nullptr)
+		{
+			if (currentNode->data == element)
+			{
+				result.Append(currentNode->data);
+			}
+
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
+			lastNode = saveCurrentNode;
+		}
+
+		return std::move(result);
 	}
 };
