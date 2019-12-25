@@ -4,31 +4,17 @@
 int main()
 {
 	XORLIST<int> list = { -20, 42, -19, -18 };
-
-	list.PrintFromStart();
 	
-	auto res = list.GetBegin();
-
-	size_t i = 0; 
-
-	while (i < 0)
-	{
-		res = list.GetNextNode(res);
-
-
-		i++;
-	}
-	
-	
-
 	list.InsertBefore(list.GetBegin(), 42);
 	list.InsertBefore(list.GetEnd(), 42);
 
-	list.DeleteAfter(res);
-
 	list.PrintFromStart();
 
+	XORLIST<int> list2 = { 9, 81, 243, 1764 };
 
+	list.JoinToXORLists(list2);
+
+	list.PrintFromStart();
 
 	//list.PrintFromStart();
 

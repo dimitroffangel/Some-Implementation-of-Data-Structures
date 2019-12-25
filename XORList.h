@@ -118,7 +118,7 @@ public:
 
 	XORLIST& operator=(const XORLIST& rhs)
 	{
-		if (*this != rhs)
+		if (this != &rhs)
 		{
 			Delete();
 			Copy(rhs);
@@ -269,6 +269,25 @@ public:
 		return false;
 	}
 
+	void JoinTwoXORLists(const XORLIST& other)
+	{
+		if (begin == nullptr)
+		{
+			return;
+		}
+
+		if (end == nullptr)
+		{
+			*this = other;
+			return;
+		}
+
+		end->nodePointerXOR = XOR_OfPointers(end->nodePointerXOR, other.begin);
+		other.begin->nodePointerXOR = XOR_OfPointers(other.begin->nodePointerXOR, end);
+
+		end = other.end;
+	}
+
 	void PopBack()
 	{
 		if (end == nullptr)
@@ -410,6 +429,55 @@ public:
 		afterDeletedNode->nodePointerXOR = XOR_OfPointers(afterDeletedNode->nodePointerXOR, XOR_OfPointers(currentNode, afterNode));
 
 		delete currentNode;
+	}
+
+	void DeleteNode(Node<T>* aboutToBeDeletedNode)
+	{
+		if (aboutToBeDeletedNode == nullptr)
+		{
+			return;
+		}
+
+		if (aboutToBeDeletedNode == begin)
+		{
+			PopFront();
+			return;
+		}
+
+		if (aboutToBeDeletedNode == end)
+		{
+			PopBack();
+			return;
+		}
+
+		Node<T>* currentNode = begin; // node that will be deleted
+		Node<T>* nodeBeforeDeletedNode = nullptr;
+		Node<T>* nodeAfterDeletedNode = nullptr;
+
+
+		while (currentNode != aboutToBeDeletedNode && currentNode != nullptr)
+		{
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, nodeBeforeDeletedNode);
+			nodeBeforeDeletedNode = saveCurrentNode;
+		}
+
+		// node is not in the list
+		if (currentNode == nullptr)
+		{
+			return;
+		}
+
+		// get the node after the deleted one
+		nodeAfterDeletedNode = XOR_OfPointers(currentNode->nodePointerXOR, nodeBeforeDeletedNode);
+
+		// set the xor of the node before the deletedNode
+		nodeBeforeDeletedNode->nodePointerXOR = XOR_OfPointers(nodeBeforeDeletedNode->nodePointerXOR, XOR_OfPointers(aboutToBeDeletedNode, nodeAfterDeletedNode));
+
+		// set the xor of the node after the deletedNode
+		nodeAfterDeletedNode->nodePointerXOR = XOR_OfPointers(nodeAfterDeletedNode->nodePointerXOR, XOR_OfPointers(aboutToBeDeletedNode, nodeBeforeDeletedNode));
+
+		delete aboutToBeDeletedNode;
 	}
 
 	// gets the first node, containing that element
