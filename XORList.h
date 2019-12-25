@@ -100,6 +100,22 @@ public:
 		Delete();
 	}
 
+	XORLIST(XORLIST&& other)
+	{
+		begin = other.begin;
+		end = other.end;
+
+		other.begin = other.end = nullptr;
+	}
+
+	XORLIST(const std::initializer_list<T>& list)
+	{
+		for (const auto& element : list)
+		{
+			Append(element);
+		}
+	}
+
 	XORLIST& operator=(const XORLIST& rhs)
 	{
 		if (*this != rhs)

@@ -3,14 +3,14 @@
 
 int main()
 {
-	XORLIST<int> list;
+	XORLIST<int> list = { -20,-19, -18 };
 
 
-	list.Prepend(1);
-	list.Prepend(0);
-	list.Append(2);
-	list.InsertAfter(list.GetBegin(), 5);
-	list.InsertAfter(list.GetEnd(), 62);
+	//list.Prepend(1);
+	//list.Prepend(0);
+	//list.Append(2);
+	//list.InsertAfter(list.GetBegin(), 5);
+	//list.InsertAfter(list.GetEnd(), 62);
 	//list.InsertBefore(list.GetBegin(), -42);
 	//list.InsertBefore(list.GetEnd(), 42);
 
@@ -27,7 +27,6 @@ int main()
 
 	list2.Prepend(112123);
 
-	list.PrintFromStart();
 	list2.PrintFromStart();
 
 	return 0;
