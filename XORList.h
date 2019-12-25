@@ -269,6 +269,149 @@ public:
 		return false;
 	}
 
+	void PopBack()
+	{
+		if (end == nullptr)
+		{
+			return;
+		}
+
+		Node<T>* currentNode = begin;
+		Node<T>* lastTraversed = nullptr;
+
+		while (currentNode != end && currentNode != nullptr)
+		{
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
+			lastTraversed = saveCurrentNode;
+		}
+
+		// get out the lastTraversed xor data the last element
+		lastTraversed->nodePointerXOR = XOR_OfPointers(lastTraversed->nodePointerXOR, end);
+
+		// get the last element 
+		delete currentNode;
+
+		end = lastTraversed;
+	}
+
+	void PopFront()
+	{
+		if (begin == nullptr)
+		{
+			return;
+		}
+
+		if (begin == end)
+		{
+			delete begin;
+
+			begin = end = nullptr;
+		}
+
+		
+		// get the node after the begin
+		Node<T>* afterBeginNode = begin->nodePointerXOR;
+
+		afterBeginNode->nodePointerXOR = XOR_OfPointers(afterBeginNode->nodePointerXOR, begin);
+
+		// delete the begin
+		delete begin;
+
+		// set the new beginning...
+		begin = afterBeginNode;
+	}
+
+	void DeleteBefore(Node<T>* beforeNode)
+	{
+		if (beforeNode == nullptr)
+		{
+			return;
+		}
+
+		if (beforeNode == begin)
+		{
+			return;
+		}
+
+		if (XOR_OfPointers(beforeNode, begin->nodePointerXOR) == nullptr)
+		{
+			PopFront();
+			return;
+		}
+
+		Node<T>* currentNode = begin; // node that will be deleted
+		Node<T>* aboutToBeDeletedNode = nullptr;
+		Node<T>* nodeBeforeDeletedNode = nullptr;
+
+		while (currentNode != beforeNode && currentNode != nullptr)
+		{
+			nodeBeforeDeletedNode = aboutToBeDeletedNode;
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(aboutToBeDeletedNode, currentNode->nodePointerXOR);
+			aboutToBeDeletedNode = saveCurrentNode;
+		}
+
+		if (currentNode == nullptr) // beforeNode is not in the list
+		{
+			return;
+		}
+
+		// set the xorData for the node after the deletedNode
+		beforeNode->nodePointerXOR = XOR_OfPointers(beforeNode->nodePointerXOR, XOR_OfPointers(aboutToBeDeletedNode, nodeBeforeDeletedNode));
+
+		// set the xorData for the node before the deletedNode
+		nodeBeforeDeletedNode->nodePointerXOR = XOR_OfPointers(nodeBeforeDeletedNode->nodePointerXOR, XOR_OfPointers(aboutToBeDeletedNode, beforeNode));
+
+		delete aboutToBeDeletedNode;
+	}
+
+	void DeleteAfter(Node<T>* afterNode)
+	{
+		if (afterNode == nullptr)
+		{
+			return;
+		}
+
+		if (afterNode == end)
+		{
+			return;
+		}
+
+		if (XOR_OfPointers(afterNode, end->nodePointerXOR) == nullptr)
+		{
+			PopBack();
+			return;
+		}
+
+		Node<T>* currentNode = begin;
+		Node<T>* lastTraversed = nullptr;
+		Node<T>* afterDeletedNode = nullptr;
+
+		while (lastTraversed != afterNode && currentNode != nullptr)
+		{
+			Node<T>* saveCurrentNode = currentNode;
+			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
+			lastTraversed = saveCurrentNode;
+		}
+
+		if (currentNode == nullptr)
+		{
+			return;
+		}
+
+		// currentNode is the node to be deleted
+		afterDeletedNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
+
+		// set the xor data for the element before the about to be deleted node
+		afterNode->nodePointerXOR = XOR_OfPointers(afterNode->nodePointerXOR, XOR_OfPointers(currentNode, afterDeletedNode));
+
+		// set the xor data for the element after the deleted node
+		afterDeletedNode->nodePointerXOR = XOR_OfPointers(afterDeletedNode->nodePointerXOR, XOR_OfPointers(currentNode, afterNode));
+
+		delete currentNode;
+	}
+
 	// gets the first node, containing that element
 	bool GetNode(const T& element)
 	{
