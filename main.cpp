@@ -3,17 +3,17 @@
 
 int main()
 {
-	XORLIST<int> list = { -20, 42, -19, -18 };
+	XORList<int> list = { -20, 42, -19, -18 };
 	
 	list.InsertBefore(list.GetBegin(), 42);
 	list.InsertBefore(list.GetEnd(), 42);
 
 	list.PrintFromStart();
 
-	const XORLIST<int> list2 = { 9, 81, 243, 81, 1764 };
+	const XORList<int> list2 = { 9, 81, 243, 81, 1764 };
 
 
-	//XORLIST<int> res = list + list2;
+	//XORList<int> res = list + list2;
 
 	//list += list2;
 
@@ -31,7 +31,7 @@ int main()
 
 	//list.PrintFromStart();
 
-	//XORLIST<int> list2 = list.GetAllNodes(42);
+	//XORList<int> list2 = list.GetAllNodes(42);
 	//
 	//list.PrintFromStart();
 

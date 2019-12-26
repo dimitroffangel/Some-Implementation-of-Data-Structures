@@ -11,7 +11,7 @@ struct Node
 };
 
 template<typename T>
-class XORLIST
+class XORList
 {
 private:
 	Node<T>* begin = nullptr;
@@ -22,7 +22,7 @@ private:
 		return (Node<T>*)((uintptr_t)(a) ^ (uintptr_t)(b));
 	}
 
-	void Copy(const XORLIST& other)
+	void Copy(const XORList& other)
 	{
 		Node<T>* currentNode = other.begin;
 		Node<T>* lastNode = nullptr;
@@ -106,22 +106,22 @@ public:
 	}
 
 public:
-	XORLIST()
+	XORList()
 	{
 
 	}
 
-	XORLIST(const XORLIST& other)
+	XORList(const XORList& other)
 	{
 		Copy(other);
 	}
 
-	~XORLIST()
+	~XORList()
 	{
 		Delete();
 	}
 
-	XORLIST(XORLIST&& other)
+	XORList(XORList&& other)
 	{
 		begin = other.begin;
 		end = other.end;
@@ -129,7 +129,7 @@ public:
 		other.begin = other.end = nullptr;
 	}
 
-	XORLIST(const std::initializer_list<T>& list)
+	XORList(const std::initializer_list<T>& list)
 	{
 		for (const auto& element : list)
 		{
@@ -137,7 +137,7 @@ public:
 		}
 	}
 
-	XORLIST& operator=(const XORLIST& rhs)
+	XORList& operator=(const XORList& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -290,7 +290,7 @@ public:
 		return false;
 	}
 
-	void JoinTwoXORLists(const XORLIST& other)
+	void JoinTwoXORLists(const XORList& other)
 	{
 		Node<T>* otherCurrentNode = other.begin;
 		Node<T>* lastTraversedNode = nullptr;
@@ -305,7 +305,7 @@ public:
 		}
 	}
 
-	void JoinTwoXORLists(XORLIST&& other)
+	void JoinTwoXORLists(XORList&& other)
 	{
 		if (begin == nullptr)
 		{
@@ -534,12 +534,12 @@ public:
 		return currentNode;
 	}
 
-	XORLIST GetAllNodes(const T& element) const
+	XORList GetAllNodes(const T& element) const
 	{
 		Node<T>* currentNode = begin;
 		Node<T>* lastNode = nullptr;
 
-		XORLIST result;
+		XORList result;
 
 		while (currentNode != nullptr)
 		{
@@ -558,9 +558,9 @@ public:
 };
 
 template<typename T>
-XORLIST<T> operator+(const XORLIST<T>& lhs, const XORLIST<T>& rhs)
+XORList<T> operator+(const XORList<T>& lhs, const XORList<T>& rhs)
 {
-	XORLIST<T> result;
+	XORList<T> result;
 	result.JoinTwoXORLists(lhs);
 	result.JoinTwoXORLists(rhs);
 
@@ -568,7 +568,7 @@ XORLIST<T> operator+(const XORLIST<T>& lhs, const XORLIST<T>& rhs)
 }
 
 template<typename T>
-void operator+=(XORLIST<T>& lhs, const XORLIST<T>& rhs)
+void operator+=(XORList<T>& lhs, const XORList<T>& rhs)
 {
 	lhs.JoinTwoXORLists(rhs);
 
