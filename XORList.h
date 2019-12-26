@@ -1,4 +1,5 @@
-#pragma once
+#ifndef XORLIST_H_GUARD
+#define XORLIST_H_GUARD
 
 #include <cstddef>
 
@@ -16,7 +17,7 @@ private:
 	Node<T>* begin = nullptr;
 	Node<T>* end = nullptr;
 
-	Node<T>* XOR_OfPointers(Node<T>* a, Node<T>* b)
+	Node<T>* XOR_OfPointers(Node<T>* a, Node<T>* b) const
 	{
 		return (Node<T>*)((uintptr_t)(a) ^ (uintptr_t)(b));
 	}
@@ -64,7 +65,7 @@ public:
 		return end;
 	}
 
-	Node<T>* GetNextNode(const Node<T>* node)
+	Node<T>* GetNextNode(const Node<T>* node) const
 	{
 		if (node == nullptr)
 		{
@@ -147,7 +148,7 @@ public:
 		return *this;
 	}
 
-	void PrintFromStart()
+	void PrintFromStart() const
 	{
 		Node<T>* currentNode = begin;
 		Node<T>* lastTraversedNode = nullptr;
@@ -518,12 +519,12 @@ public:
 	}
 
 	// gets the first node, containing that element
-	bool GetNode(const T& element)
+	Node<T>* GetNode(const T& element) const
 	{
 		Node<T>* currentNode = begin;
 		Node<T>* lastNode = nullptr;
 
-		while (currentNode->data != element && currentNode != nullptr)
+		while (currentNode != nullptr && currentNode->data != element)
 		{
 			Node<T>* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
@@ -533,7 +534,7 @@ public:
 		return currentNode;
 	}
 
-	XORLIST GetAllNodes(const T& element)
+	XORLIST GetAllNodes(const T& element) const
 	{
 		Node<T>* currentNode = begin;
 		Node<T>* lastNode = nullptr;
@@ -573,3 +574,5 @@ void operator+=(XORLIST<T>& lhs, const XORLIST<T>& rhs)
 
 	//return lhs;
 }
+
+#endif
