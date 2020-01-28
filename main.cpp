@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "XORList.h"
 
 int main()
@@ -12,7 +10,6 @@ int main()
 	list.PrintFromStart();
 
 	const XORList<int> list2 = { 9, 81, 243, 81, 1764 };
-
 
 	//XORList<int> res = list + list2;
 

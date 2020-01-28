@@ -2,6 +2,9 @@
 #define XORLIST_H_GUARD
 
 #include <cstddef>
+#include <initializer_list>
+#include <utility>
+#include <iostream>
 
 template<typename T>
 struct Node
