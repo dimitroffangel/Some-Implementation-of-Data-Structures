@@ -19,6 +19,9 @@
     <Filter Include="Header Files\LinkedLists">
       <UniqueIdentifier>{5e351c7b-7a37-455b-a226-7f1b3edd33e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Trees">
+      <UniqueIdentifier>{0be9d2b4-c8ab-430c-8caa-dd3f7cef79ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -28,6 +31,9 @@
   <ItemGroup>
     <ClInclude Include="LinkedLists\XORList.h">
       <Filter>Header Files\LinkedLists</Filter>
+    </ClInclude>
+    <ClInclude Include="Trees\AVLTree.h">
+      <Filter>Header Files\Trees</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

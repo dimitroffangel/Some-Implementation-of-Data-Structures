@@ -6,12 +6,15 @@
 #include <utility>
 #include <iostream>
 
-template<typename T>
-struct Node
+namespace XORNode
 {
-	T data;
-	Node* nodePointerXOR = nullptr;
-};
+	template<typename T>
+	struct Node
+	{
+		T data;
+		Node* nodePointerXOR = nullptr;
+	};
+}
 
 template<typename T>
 class XORList

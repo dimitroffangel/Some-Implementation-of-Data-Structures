@@ -1,9 +1,10 @@
 #include "./LinkedLists/XORList.h"
+#include "Trees/AVLTree.h"
 
-int main()
+void TestXORList()
 {
 	XORList<int> list = { -20, 42, -19, -18 };
-	
+
 	list.InsertBefore(list.GetBegin(), 42);
 	list.InsertBefore(list.GetEnd(), 42);
 
@@ -38,6 +39,11 @@ int main()
 	//list2.Prepend(112123);
 
 	//list2.PrintFromStart();
+}
+
+int main()
+{
+	
 
 	return 0;
 }
