@@ -1,14 +1,16 @@
 #ifndef AVLTREE_H_GUARD
 #define AVLTREE_H_GUARD
 
+#include <iostream>
+
 template<typename T>
 struct Node
 {
 	T data;
-	char balanceFactor;
-	Node<T>* parent;
-	Node<T>* left;
-	Node<T>* right;
+	char balanceFactor = 0;
+	Node<T>* parent = nullptr;
+	Node<T>* left   = nullptr;
+	Node<T>* right  = nullptr;
 };
 
 template<typename T>
@@ -60,7 +62,7 @@ private:
 		}
 
 		PrintFromNode(treeNode->left);
-		std::cout << treeNode->data;
+		std::cout << treeNode->data << " ";
 		PrintFromNode(treeNode->right);
 	}
 
@@ -225,7 +227,7 @@ private:
 				//then the rightChild of the savingNode will have height with one bigger than its new sibling => 
 				savingNode->balanceFactor = 1;
 				// than the left child of the badlyWeightedParent will have the same height as its new sibling =>
-				badlyWeightedParent->balanceFactor = 0
+				badlyWeightedParent->balanceFactor = 0;
 			}
 		}
 
@@ -255,7 +257,7 @@ private:
 		*/
 
 		Node<T>* savingNodeRightChild = savingNode->right;
-		Node<T>* savingNodeRightChildLeftChild = savingNodeLeftChild->left;
+		Node<T>* savingNodeRightChildLeftChild = savingNodeRightChild->left;
 
 		savingNode->right = savingNodeRightChildLeftChild;
 
@@ -267,7 +269,7 @@ private:
 		savingNodeRightChild->left = savingNode;
 		savingNode->parent = savingNodeRightChild;
 
-		Node<T>* savingNodeRightChildRightChild = savingNodeRightChild->Right;
+		Node<T>* savingNodeRightChildRightChild = savingNodeRightChild->right;
 		badlyWeightedParent->left = savingNodeRightChildRightChild;
 
 		if (savingNodeRightChildRightChild != nullptr)
@@ -307,32 +309,264 @@ private:
 				//then the leftChild of the savingNode will have height with one bigger than its new sibling => 
 				savingNode->balanceFactor = -1;
 				// than the right child of the badlyWeightedParent will have the same height as its new sibling =>
-				badlyWeightedParent->balanceFactor = 0
+				badlyWeightedParent->balanceFactor = 0;
 			}
 		}
 
-		savingNodeLeftChild->balanceFactor = 0;
-		return savingNodeLeftChild;
+		savingNodeRightChild->balanceFactor = 0;
+		return savingNodeRightChild;
 
 	}
 
 
-	Node<T>* Add(Node<T>*& treeNode, Node<T>*& comingFromNode, const T& x) const
+	Node<T>* Add(Node<T>*& treeNode, Node<T>* comingFromNode, const T& x) const
 	{
 		if (treeNode == nullptr)
 		{
 			treeNode = new Node<T>;
 			treeNode->data = x;
+
+			if (comingFromNode == nullptr)
+			{
+				return treeNode;
+			}
+				
 			treeNode->parent = comingFromNode;
 			return treeNode;
 		}
 
 		if (x < treeNode->data)
 		{
-			return Add(treeNode->left, treeNode, x)
+			return Add(treeNode->left, treeNode, x);
 		}
 
 		return Add(treeNode->right, treeNode, x);
+	}
+
+	Node<T>* TryDeletingNodePointer(Node<T>* root, const T& withValue)
+	{
+		if (root == nullptr)
+		{
+			return nullptr;
+		}
+
+		if (root->data > withValue)
+		{
+			return TryDeletingNodePointer(root->left, withValue);
+
+		}
+
+		if (root->data < withValue)
+		{
+			return TryDeletingNodePointer(root->right, withValue);
+		}
+
+		//else
+		Node<T>* tempPointer = nullptr;
+
+		if (root->left == nullptr)
+		{
+			tempPointer = root;
+			root = root->right;
+
+			if (root != nullptr)
+			{
+				MakeRotationsAfterDelete(tempPointer->parent, tempPointer);
+
+				root->parent = tempPointer->parent;
+
+				delete tempPointer;
+				return root;
+			}
+
+			else
+			{
+				tempPointer->parent->right = nullptr;
+				Node<T>* tempPointerParent = tempPointer->parent;
+
+				MakeRotationsAfterDelete(tempPointer->parent, tempPointer);
+
+				delete tempPointer;
+				return tempPointerParent;
+			}
+		}
+
+		else if (root->right == nullptr)
+		{
+			tempPointer = root;
+			root = root->left;
+
+			if (root != nullptr)
+			{
+				root->parent = tempPointer->parent;
+
+				MakeRotationsAfterDelete(tempPointer->parent, tempPointer);
+
+				delete tempPointer;
+				return root;
+			}
+
+			else
+			{
+				tempPointer->parent->right = nullptr;
+				Node<T>* tempPointerParent = tempPointer->parent;
+				
+				MakeRotationsAfterDelete(tempPointer->parent, tempPointer);
+
+				delete tempPointer;
+				return tempPointerParent;
+			}
+		}
+
+		else
+		{
+			tempPointer = root->right;
+			Node<T>* parentTempPointer = root;
+
+			while (tempPointer->left != nullptr)
+			{
+				parentTempPointer = tempPointer;
+				tempPointer = tempPointer->left;
+			}
+
+			root->data = tempPointer->data;
+
+			MakeRotationsAfterDelete(tempPointer->parent, tempPointer);
+
+			// then the right side of the root must only be changed
+			if (root == parentTempPointer)
+			{
+				root->right = tempPointer->right;
+				tempPointer->parent = root;
+			}
+
+			// there is no left child of the tempPointer, because the while would have gone there
+			else
+			{
+				parentTempPointer->left = tempPointer->right;
+			}
+
+			// now nothing points to the tempPointer
+			delete tempPointer;
+
+			return parentTempPointer;
+		}
+	}
+
+	void MakeRotationsAfterDelete(Node<T>* parentOfDeletedNode, Node<T>* deletedNode)
+	{
+		Node<T>* currentNode = deletedNode;
+		Node<T>* grandParent = nullptr;
+		Node<T>* movedNode = nullptr;
+		char balancingParentChild;
+
+		for (Node<T>* parent = parentOfDeletedNode; parent != nullptr; parent = currentNode->parent)
+		{
+			grandParent = parent->parent;
+
+			if (currentNode == parent->left) // the left subtree decreases
+			{
+				if (parent->balanceFactor > 0) // parent is right-heavy => parentRightChild != nullptr
+				{
+					Node<T>* parentRightChild = parent->right;
+
+					if (parentRightChild == nullptr)
+					{
+						std::cerr << "AVLTree::DeleteNodePointer parent->right is nullptr..." << '\n';
+						return;
+					}
+
+					balancingParentChild = parentRightChild->balanceFactor;
+
+					if (parentRightChild->balanceFactor < 0)
+					{
+						currentNode = RotateRightLeft(parent, parentRightChild);
+					}
+
+					else
+					{
+						currentNode = RotateLeft(parent, parentRightChild);
+					}
+				}
+
+				else
+				{
+					if (parent->balanceFactor == 0)
+					{
+						parent->balanceFactor = 1;
+						break;
+					}
+
+					currentNode = parent;
+					currentNode->balanceFactor = 0;
+					continue;
+				}
+			}
+
+			else // currentNode is a rightChild
+			{
+				if (parent->balanceFactor < 0) // parent is leaftHeavy
+				{
+					Node<T>* parentLeftChild = parent->left;
+
+					if (parentLeftChild == nullptr)
+					{
+						std::cerr << "AVLTree::DeleteNode parent->left is a nullptr... " << '\n';
+						return;
+					}
+
+					balancingParentChild = parentLeftChild->balanceFactor;
+
+					if (parentLeftChild->balanceFactor > 0)
+					{
+						currentNode = RotateLeftRight(parent, parentLeftChild);
+					}
+
+					else
+					{
+						currentNode = RotateRight(parent, parentLeftChild);
+					}
+				}
+
+				else
+				{
+					if (parent->balanceFactor == 0)
+					{
+						parent->balanceFactor = -1;
+						break;
+					}
+
+					currentNode = parent;
+					currentNode->balanceFactor = 0;
+					continue;
+				}
+			}
+
+			currentNode->parent = grandParent;
+
+			if (grandParent != nullptr)
+			{
+				if (parent == grandParent->left)
+				{
+					grandParent->left = currentNode;
+				}
+
+				else
+				{
+					grandParent->right = currentNode;
+				}
+
+				if (balancingParentChild == 0)
+				{
+					break; // height does not change
+				}
+			}
+
+			else
+			{
+				root = currentNode;
+			}
+		}
 	}
 
 public:
@@ -379,16 +613,22 @@ public:
 		return std::move(leftTree);
 	}
 
-	AVLTree&& GetLeftTree() const
+	AVLTree&& GetRightTree() const
 	{
 		AVLTree leftTree;
 		Copy(leftTree.root, root->left);
 		return std::move(leftTree);
 	}
 
+	void Print() const
+	{
+		PrintFromNode(root);
+	}
+
 	void AddNode(const T& value)
 	{
-		Node<T>* currentNode = Add(root, value);
+		Node<T>* currentNode = Add(root, nullptr, value);
+
 		Node<T>* movedNode= nullptr;
 		Node<T>* grandfather = nullptr;
 		// now the rebalancing stuff
@@ -411,7 +651,7 @@ public:
 						movedNode= RotateRightLeft(parent, currentNode);
 					}
 
-					else
+					else // >= 0
 					{
 						// rotation on the Left(X)
 						movedNode= RotateLeft(parent, currentNode);
@@ -430,7 +670,7 @@ public:
 					// else parent->balanceFactor = 0
 					// but there is no certainty that the tree will remain balanced among its lower heights
 					parent->balanceFactor = 1;
-					currentNode = X;
+					currentNode = parent;
 					continue;
 				}
 			}
@@ -499,6 +739,21 @@ public:
 			}
 		}
 	}
-};
 
+	void DeleteNode(const T& value)
+	{
+		if (root == nullptr)
+		{
+			return;
+		}
+
+		DeleteNodePointer(root, value);
+	}
+
+	void DeleteNodePointer(Node<T>*& root, const T& withValue)
+	{
+		Node<T>* currentNode = TryDeletingNodePointer(root, withValue);
+		
+	}
+};
 #endif
