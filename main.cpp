@@ -56,17 +56,9 @@ int main()
 
 
 	tree.DeleteNode(4);
-	
-	//tree.Print();
-
+	tree.Print();
 	tree.DeleteNode(7);
-	
-	//tree.Print();
-
-
 	tree.DeleteNode(6);
-
-	//tree.Print();
 
 	tree.AddNode(-5);
 

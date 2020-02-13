@@ -353,7 +353,6 @@ private:
 		if (root->data > withValue)
 		{
 			return TryDeletingNodePointer(root->left, withValue);
-
 		}
 
 		if (root->data < withValue)
@@ -373,7 +372,7 @@ private:
 			{
 				MakeRotationsAfterDelete(tempPointer->parent, tempPointer);
 
-				root->parent = tempPointer->parent;
+				//root->parent = tempPointer->parent;
 
 				delete tempPointer;
 				return root;
@@ -470,12 +469,6 @@ private:
 				{
 					Node<T>* parentRightChild = parent->right;
 
-					if (parentRightChild == nullptr)
-					{
-						std::cerr << "AVLTree::DeleteNodePointer parent->right is nullptr..." << '\n';
-						return;
-					}
-
 					balancingParentChild = parentRightChild->balanceFactor;
 
 					if (parentRightChild->balanceFactor < 0)
@@ -508,13 +501,6 @@ private:
 				if (parent->balanceFactor < 0) // parent is leaftHeavy
 				{
 					Node<T>* parentLeftChild = parent->left;
-
-					if (parentLeftChild == nullptr)
-					{
-						std::cerr << "AVLTree::DeleteNode parent->left is a nullptr... " << '\n';
-						return;
-					}
-
 					balancingParentChild = parentLeftChild->balanceFactor;
 
 					if (parentLeftChild->balanceFactor > 0)
@@ -747,13 +733,7 @@ public:
 			return;
 		}
 
-		DeleteNodePointer(root, value);
-	}
-
-	void DeleteNodePointer(Node<T>*& root, const T& withValue)
-	{
-		Node<T>* currentNode = TryDeletingNodePointer(root, withValue);
-		
+		TryDeletingNodePointer(root, value);
 	}
 };
 #endif
