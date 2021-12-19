@@ -53,8 +53,7 @@ void UnitTests::TestSkipList(const std::vector<int>& elementsToAdd, const std::v
 	const std::string filePath = "./skipListTests.txt";
 
 	SkipListUnitTests::AddTest({}, elementsToAdd, filePath);
-
-
+	
 	SkipListUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
 	SkipListUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
 	SkipListUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);

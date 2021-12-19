@@ -57,13 +57,7 @@ void TestSkipList()
 		fooList.Add(2);
 	}
 
-	fooList.Delete(9);
-	fooList.Delete(2);
-	fooList.Delete(3);
-	fooList.Delete(4);
-	fooList.Delete(5);
-	fooList.Delete(6);
-	//fooList.Delete(9);
+	fooList.Print();
 }
 
 int main()

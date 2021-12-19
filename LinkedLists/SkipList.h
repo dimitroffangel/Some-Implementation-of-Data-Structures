@@ -181,6 +181,25 @@ public:
 		return false;
 	}
 
+	void Print() const
+	{
+		Node* currentInitialNodeOnLevel = m_FirstNode;
+
+		while (currentInitialNodeOnLevel != nullptr)
+		{
+			Node* currentNodeOnLevel = currentInitialNodeOnLevel->rightPointer;
+
+			while (currentNodeOnLevel != nullptr)
+			{
+				std::cout << currentNodeOnLevel->data << "-> ";
+				currentNodeOnLevel = currentNodeOnLevel->rightPointer;
+			}
+
+			currentInitialNodeOnLevel = currentInitialNodeOnLevel->downPointer;
+			std::cout << '\n';
+		}
+	}
+
 private:
 	Node* TryFindingPreviousElement(const T& valueToSearch) const
 	{
