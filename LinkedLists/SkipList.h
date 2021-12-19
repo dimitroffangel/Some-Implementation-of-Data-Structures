@@ -22,7 +22,7 @@ class SkipList
 	static const int MIN_RANDOM_INTERVAL = 0;
 	static const int MAX_RANDOM_INTERVAL = 100;
 
-	Node* m_FirstNode;
+	Node* m_FirstNode = nullptr;
 	size_t m_CurrentNumberOfLevels = 1;
 	float m_PropabilityToIncreaseLevel;
 
@@ -42,11 +42,25 @@ public:
 		m_FirstNode->rightPointer = newNode;
 	}
 
+	SkipList(const float probabilityToIncreaseLevel)
+		:m_PropabilityToIncreaseLevel(probabilityToIncreaseLevel)
+	{
+		assert(probabilityToIncreaseLevel > MIN_RANDOM_INTERVAL && probabilityToIncreaseLevel < MAX_RANDOM_INTERVAL);
+
+		srand(time(NULL));
+	}
+
 	bool Add(const T& value)
 	{
 		Node* adjacentLeftNode = TryFindingPreviousElement(value);
 
-		if (adjacentLeftNode == nullptr)
+		if (adjacentLeftNode == nullptr && m_FirstNode == nullptr)
+		{
+			m_FirstNode = new Node();
+			adjacentLeftNode = m_FirstNode;
+		}
+
+		else if (adjacentLeftNode == nullptr)
 		{
 			return false;
 		}
@@ -168,7 +182,7 @@ public:
 	}
 
 private:
-	Node* TryFindingPreviousElement(const T& valueToSearch)
+	Node* TryFindingPreviousElement(const T& valueToSearch) const
 	{
 		if (m_FirstNode == nullptr)
 		{

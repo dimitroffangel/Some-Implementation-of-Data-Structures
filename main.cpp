@@ -1,6 +1,7 @@
 //#include "./LinkedLists/XORList.h"
 #include "Trees/AVLTree.h"
 #include "LinkedLists/SkipList.h"
+#include "UnitTests.h"
 
 //void TestXORList()
 //{
@@ -67,7 +68,11 @@ void TestSkipList()
 
 int main()
 {
-	TestSkipList();
+	UnitTests::TestSkipList();
+
+	//TestSkipList();
+
+
 
 	//AVLTree<int> tree;
 
