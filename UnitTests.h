@@ -14,7 +14,9 @@ struct UnitTests
 	// for each ai in list ai <= a(i+1) && ai >= a(i-1) for existent adjacent elements
 	static std::vector<int> GenerateIncreasingDecreasingList(const size_t sizeOfLists);
 
-	static void TestSkipList();
+	static void TestDataStructures();
+
+	static void TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
 };
 
 #endif

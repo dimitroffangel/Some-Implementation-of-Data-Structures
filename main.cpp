@@ -68,7 +68,7 @@ void TestSkipList()
 
 int main()
 {
-	UnitTests::TestSkipList();
+	UnitTests::TestDataStructures();
 
 	//TestSkipList();
 
