@@ -2,6 +2,7 @@
 
 #include "DataStructureHelper.h"
 #include "SkipListUnitTests.h"
+#include "VectorUnitTests.h"
 
 std::vector<int> UnitTests::GenerateSomeList(const size_t sizeOfLists, int from, int to)
 {
@@ -42,25 +43,50 @@ void UnitTests::TestDataStructures()
 	}
 
 	TestSkipList(elementsToAdd, subLists, elementstoAdd2);
+	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
 }
 
 void UnitTests::TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
 {
-	SkipListUnitTests::AddTest({}, elementsToAdd, "./skipListTests.txt");
+	const std::string filePath = "./skipListTests.txt";
+
+	SkipListUnitTests::AddTest({}, elementsToAdd, filePath);
 
 
-	SkipListUnitTests::GetTest(elementsToAdd, elementsToAdd, "./skipListTests.txt");
-	SkipListUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, "./skipListTests.txt");
-	SkipListUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, "./skipListTests.txt");
-	SkipListUnitTests::AddGet(elementsToAdd, elementsToAdd2, "./skipListTests.txt");
-	SkipListUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, "./skipListTests.txt");
-	SkipListUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, "./skipListTests.txt");
+	SkipListUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	SkipListUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
 
 	for (size_t i = 0; i < subLists.size(); ++i)
 	{
-		SkipListUnitTests::RemoveTest(elementsToAdd, subLists[i], "./skipListTests.txt");
-		SkipListUnitTests::RemoveGet(elementsToAdd, subLists[i], "./skipListTests.txt");
-		SkipListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], "./skipListTests.txt");
+		SkipListUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		SkipListUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		SkipListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
 	}
 
+}
+
+void UnitTests::TestVectorList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+{
+	const std::string filePath = "./vectorListTests.txt";
+
+	VectorUnitTests::AddTest({}, elementsToAdd, filePath);
+
+
+	VectorUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	VectorUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	VectorUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	VectorUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	VectorUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	VectorUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+
+	for (size_t i = 0; i < subLists.size(); ++i)
+	{
+		VectorUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		VectorUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		VectorUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+	}
 }

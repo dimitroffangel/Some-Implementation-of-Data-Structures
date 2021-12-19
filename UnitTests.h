@@ -17,6 +17,7 @@ struct UnitTests
 	static void TestDataStructures();
 
 	static void TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
+	static void TestVectorList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
 };
 
 #endif

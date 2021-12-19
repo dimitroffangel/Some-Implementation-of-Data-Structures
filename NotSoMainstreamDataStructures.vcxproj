@@ -129,12 +129,14 @@
     <ClInclude Include="SkipListUnitTests.h" />
     <ClInclude Include="Trees\AVLTree.h" />
     <ClInclude Include="UnitTests.h" />
+    <ClInclude Include="VectorUnitTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStructureHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SkipListUnitTests.cpp" />
     <ClCompile Include="UnitTests.cpp" />
+    <ClCompile Include="VectorUnitTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
