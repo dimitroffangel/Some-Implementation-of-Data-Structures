@@ -3,6 +3,7 @@
 #include "DataStructureHelper.h"
 #include "SkipListUnitTests.h"
 #include "VectorUnitTests.h"
+#include "LinkedListUnitTests.h"
 
 std::vector<int> UnitTests::GenerateSomeList(const size_t sizeOfLists, int from, int to)
 {
@@ -44,6 +45,7 @@ void UnitTests::TestDataStructures()
 
 	TestSkipList(elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
+	TestLinkedList(elementsToAdd, subLists, elementstoAdd2);
 }
 
 void UnitTests::TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
@@ -88,5 +90,28 @@ void UnitTests::TestVectorList(const std::vector<int>& elementsToAdd, const std:
 		VectorUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
 		VectorUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
 		VectorUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+	}
+}
+
+
+void UnitTests::TestLinkedList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+{
+	const std::string filePath = "./linkedListTests.txt";
+
+	LinkedListUnitTests::AddTest({}, elementsToAdd, filePath);
+
+
+	LinkedListUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	LinkedListUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	LinkedListUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	LinkedListUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	LinkedListUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	LinkedListUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+
+	for (size_t i = 0; i < subLists.size(); ++i)
+	{
+		LinkedListUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		LinkedListUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		LinkedListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
 	}
 }

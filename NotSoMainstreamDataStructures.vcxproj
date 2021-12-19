@@ -126,6 +126,7 @@
     <ClInclude Include="DataStructureHelper.h" />
     <ClInclude Include="LinkedLists\SkipList.h" />
     <ClInclude Include="LinkedLists\XORList.h" />
+    <ClInclude Include="LinkedListUnitTests.h" />
     <ClInclude Include="SkipListUnitTests.h" />
     <ClInclude Include="Trees\AVLTree.h" />
     <ClInclude Include="UnitTests.h" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStructureHelper.cpp" />
+    <ClCompile Include="LinkedListUnitTests.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SkipListUnitTests.cpp" />
     <ClCompile Include="UnitTests.cpp" />
