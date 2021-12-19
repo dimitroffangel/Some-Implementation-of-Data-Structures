@@ -4,6 +4,7 @@
 #include "SkipListUnitTests.h"
 #include "VectorUnitTests.h"
 #include "LinkedListUnitTests.h"
+#include "RedBlackTreeUnitTests.h"
 
 std::vector<int> UnitTests::GenerateSomeList(const size_t sizeOfLists, int from, int to)
 {
@@ -46,6 +47,7 @@ void UnitTests::TestDataStructures()
 	TestSkipList(elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
 	TestLinkedList(elementsToAdd, subLists, elementstoAdd2);
+	TestRedBlackTree(elementsToAdd, subLists, elementstoAdd2);
 }
 
 void UnitTests::TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
@@ -92,7 +94,6 @@ void UnitTests::TestVectorList(const std::vector<int>& elementsToAdd, const std:
 	}
 }
 
-
 void UnitTests::TestLinkedList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
 {
 	const std::string filePath = "./linkedListTests.txt";
@@ -112,5 +113,26 @@ void UnitTests::TestLinkedList(const std::vector<int>& elementsToAdd, const std:
 		LinkedListUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
 		LinkedListUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
 		LinkedListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+	}
+}
+
+void UnitTests::TestRedBlackTree(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+{
+	const std::string filePath = "./redBlackTreeTests.txt";
+
+	RedBlackTreeUnitTests::AddTest({}, elementsToAdd, filePath);
+
+	RedBlackTreeUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	RedBlackTreeUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	RedBlackTreeUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	RedBlackTreeUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	RedBlackTreeUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	RedBlackTreeUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+
+	for (size_t i = 0; i < subLists.size(); ++i)
+	{
+		RedBlackTreeUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		RedBlackTreeUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		RedBlackTreeUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
 	}
 }
