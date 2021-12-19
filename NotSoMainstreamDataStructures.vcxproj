@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LinkedLists\SkipList.h" />
     <ClInclude Include="LinkedLists\XORList.h" />
     <ClInclude Include="Trees\AVLTree.h" />
   </ItemGroup>

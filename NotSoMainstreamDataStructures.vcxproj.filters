@@ -35,5 +35,8 @@
     <ClInclude Include="Trees\AVLTree.h">
       <Filter>Header Files\Trees</Filter>
     </ClInclude>
+    <ClInclude Include="LinkedLists\SkipList.h">
+      <Filter>Header Files\LinkedLists</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

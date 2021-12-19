@@ -1,5 +1,6 @@
 //#include "./LinkedLists/XORList.h"
 #include "Trees/AVLTree.h"
+#include "LinkedLists/SkipList.h"
 
 //void TestXORList()
 //{
@@ -41,26 +42,51 @@
 //	//list2.PrintFromStart();
 //}
 
+void TestSkipList()
+{
+	SkipList<int> fooList(2, 50);
+
+	for (size_t i = 3; i <= 10; ++i)
+	{
+		fooList.Add(i);
+	}
+
+	for (size_t i = 1; i <= 5; ++i)
+	{
+		fooList.Add(2);
+	}
+
+	fooList.Delete(9);
+	fooList.Delete(2);
+	fooList.Delete(3);
+	fooList.Delete(4);
+	fooList.Delete(5);
+	fooList.Delete(6);
+	//fooList.Delete(9);
+}
+
 int main()
 {
-	AVLTree<int> tree;
+	TestSkipList();
 
-	tree.AddNode(1);
-	tree.AddNode(2);
-	tree.AddNode(3);
-	tree.AddNode(4);
-	tree.AddNode(5);
-	tree.AddNode(6);
-	tree.AddNode(7);
-	tree.AddNode(-5);
+	//AVLTree<int> tree;
+
+	//tree.AddNode(1);
+	//tree.AddNode(2);
+	//tree.AddNode(3);
+	//tree.AddNode(4);
+	//tree.AddNode(5);
+	//tree.AddNode(6);
+	//tree.AddNode(7);
+	//tree.AddNode(-5);
 
 
-	tree.DeleteNode(4);
-	tree.Print();
-	tree.DeleteNode(7);
-	tree.DeleteNode(6);
+	//tree.DeleteNode(4);
+	//tree.Print();
+	//tree.DeleteNode(7);
+	//tree.DeleteNode(6);
 
-	tree.AddNode(-5);
+	//tree.AddNode(-5);
 
 	return 0;
 }

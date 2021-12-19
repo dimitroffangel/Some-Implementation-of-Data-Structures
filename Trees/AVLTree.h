@@ -318,7 +318,6 @@ private:
 
 	}
 
-
 	Node<T>* Add(Node<T>*& treeNode, Node<T>* comingFromNode, const T& x) const
 	{
 		if (treeNode == nullptr)
