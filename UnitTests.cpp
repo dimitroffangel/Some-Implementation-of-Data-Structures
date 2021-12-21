@@ -1,6 +1,7 @@
 #include "UnitTests.h"
 
 #include "DataStructureHelper.h"
+#include "SkipListOriginalUnitTests.h"
 #include "SkipListUnitTests.h"
 #include "VectorUnitTests.h"
 #include "LinkedListUnitTests.h"
@@ -44,10 +45,33 @@ void UnitTests::TestDataStructures()
 		subLists.push_back(subList);
 	}
 
+	TestSkipListOriginal(elementsToAdd, subLists, elementstoAdd2);
 	TestSkipList(elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
 	TestLinkedList(elementsToAdd, subLists, elementstoAdd2);
 	TestRedBlackTree(elementsToAdd, subLists, elementstoAdd2);
+}
+
+void UnitTests::TestSkipListOriginal(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+{
+	const std::string filePath = "./skipListTestsOriginal.txt";
+
+	SkipListOriginalUnitTests::AddTest({}, elementsToAdd, filePath);
+
+	SkipListOriginalUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	SkipListOriginalUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+
+	for (size_t i = 0; i < subLists.size(); ++i)
+	{
+		SkipListOriginalUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		SkipListOriginalUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+	}
+
 }
 
 void UnitTests::TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)

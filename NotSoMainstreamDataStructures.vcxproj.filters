@@ -45,6 +45,9 @@
     <ClCompile Include="RedBlackTreeUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SkipListOriginalUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedLists\XORList.h">
@@ -73,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="RedBlackTreeUnitTests.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkipListOriginalUnitTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkipListOriginal.h">
+      <Filter>Header Files\LinkedLists</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

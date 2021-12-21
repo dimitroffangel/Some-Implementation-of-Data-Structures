@@ -129,6 +129,8 @@
     <ClInclude Include="LinkedListUnitTests.h" />
     <ClInclude Include="RedBlackTreeUnitTests.h" />
     <ClInclude Include="SkipListUnitTests.h" />
+    <ClInclude Include="SkipListOriginal.h" />
+    <ClInclude Include="SkipListOriginalUnitTests.h" />
     <ClInclude Include="Trees\AVLTree.h" />
     <ClInclude Include="UnitTests.h" />
     <ClInclude Include="VectorUnitTests.h" />
@@ -139,6 +141,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RedBlackTreeUnitTests.cpp" />
     <ClCompile Include="SkipListUnitTests.cpp" />
+    <ClCompile Include="SkipListOriginalUnitTests.cpp" />
     <ClCompile Include="UnitTests.cpp" />
     <ClCompile Include="VectorUnitTests.cpp" />
   </ItemGroup>
