@@ -182,6 +182,27 @@ public:
 		return true;
 	}
 
+	void Print() const
+	{
+		Node* currentInitialNodeOnLevel = m_FirstNode;
+
+		Node* currentNode = m_FirstNode;
+		size_t currentIterationLevel = m_CurrentNumberOfLevels;
+
+		for (int currentIteratedLevel = m_CurrentNumberOfLevels; currentIteratedLevel >= 0; --currentIteratedLevel)
+		{
+			std::cout << "Level : " << currentIteratedLevel << ": ";
+			Node* nextNode = m_FirstNode->nextNodes[currentIteratedLevel];
+
+			while (nextNode != nullptr)
+			{
+				std::cout << nextNode->data << " ";
+				nextNode = nextNode->nextNodes[currentIteratedLevel];
+			}
+			std::cout << "\n";
+		}
+	}
+
 private:
 	bool TryFindingPreviousElement(const T& valueToSearch, std::vector<Node*>& previousNodes) const
 	{

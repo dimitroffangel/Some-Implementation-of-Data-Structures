@@ -24,9 +24,6 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddTest(const std::vector<int>&
 		skipList.Add(elementToAdd);
 	}
 
-	//std::cout << '\n';
-	//skipList.Print();
-
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
@@ -53,9 +50,6 @@ SkipListOriginal<int> SkipListOriginalUnitTests::RemoveTest(const std::vector<in
 	{
 		skipList.Delete(elementToAdd);
 	}
-
-	//std::cout << '\n';
-	//skipList.Print();
 
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
