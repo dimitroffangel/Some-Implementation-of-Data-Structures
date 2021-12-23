@@ -7,6 +7,7 @@
 #include "LinkedListUnitTests.h"
 #include "RedBlackTreeUnitTests.h"
 #include "AVLTreeUnitTests.h"
+#include "XORListUnitTests.h"
 
 std::vector<int> UnitTests::GenerateIncreasingList(const size_t sizeOfLists, int from, int to)
 {
@@ -82,8 +83,8 @@ std::vector<int> UnitTests::GenerateIncreasingDecreasingList(const size_t sizeOf
 
 void UnitTests::TestDataStructures()
 {
-	std::vector<int> elementsToAdd = GenerateIncreasingList(1000);
-	std::vector<int> elementstoAdd2 = GenerateIncreasingList(1000);
+	std::vector<int> elementsToAdd = GenerateIncreasingList(10000);
+	std::vector<int> elementstoAdd2 = GenerateIncreasingList(10000);
 
 	std::vector<std::vector<int>> subLists;
 	const size_t sizeOfSubList = DataStructureHelper::GenerateRandomNumber(0, elementsToAdd.size());
@@ -106,11 +107,13 @@ void UnitTests::TestDataStructures()
 	}
 
 	TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);
-	TestSkipList(50, elementsToAdd, subLists, elementstoAdd2);
+	//TestSkipList(50, elementsToAdd, subLists, elementstoAdd2);
+	TestSkipList(75, elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
 	TestLinkedList(elementsToAdd, subLists, elementstoAdd2);
+	TestXORList(elementsToAdd, subLists, elementstoAdd2);
 	TestRedBlackTree(elementsToAdd, subLists, elementstoAdd2);
-	TestAVLTree(elementsToAdd, subLists, elementstoAdd2);
+	//TestAVLTree(elementsToAdd, subLists, elementstoAdd2);
 }
 
 void UnitTests::TestSkipListOriginal(const size_t probability, const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
@@ -198,6 +201,28 @@ void UnitTests::TestLinkedList(const std::vector<int>& elementsToAdd, const std:
 		LinkedListUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
 		LinkedListUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
 		LinkedListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+	}
+}
+
+void UnitTests::TestXORList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+{
+	const std::string filePath = "./xorListTests.txt";
+
+	XORListUnitTests::AddTest({}, elementsToAdd, filePath);
+
+
+	XORListUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	XORListUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	XORListUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	XORListUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	XORListUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	XORListUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+
+	for (size_t i = 0; i < subLists.size(); ++i)
+	{
+		XORListUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		XORListUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		XORListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
 	}
 }
 

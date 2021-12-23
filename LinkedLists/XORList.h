@@ -6,38 +6,34 @@
 #include <utility>
 #include <iostream>
 
-namespace XORNode
+template<typename T>
+class XORList
 {
-	template<typename T>
 	struct Node
 	{
 		T data;
 		Node* nodePointerXOR = nullptr;
 	};
-}
 
-template<typename T>
-class XORList
-{
 private:
-	Node<T>* begin = nullptr;
-	Node<T>* end = nullptr;
+	Node* begin = nullptr;
+	Node* end = nullptr;
 
-	Node<T>* XOR_OfPointers(Node<T>* a, Node<T>* b) const
+	Node* XOR_OfPointers(Node* a, Node* b) const
 	{
-		return (Node<T>*)((uintptr_t)(a) ^ (uintptr_t)(b));
+		return (Node*)((uintptr_t)(a) ^ (uintptr_t)(b));
 	}
 
 	void Copy(const XORList& other)
 	{
-		Node<T>* currentNode = other.begin;
-		Node<T>* lastNode = nullptr;
+		Node* currentNode = other.begin;
+		Node* lastNode = nullptr;
 
 		while (currentNode != nullptr)
 		{
 			Append(currentNode->data);
 
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
 			lastNode = saveCurrentNode;
 		}
@@ -45,12 +41,12 @@ private:
 
 	void Delete()
 	{
-		Node<T>* currentNode = begin;
-		Node<T>* lastNode = nullptr;
+		Node* currentNode = begin;
+		Node* lastNode = nullptr;
 
 		while (currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
 			
 			// delete the current Node
@@ -61,29 +57,29 @@ private:
 	}
 
 public:
-	Node<T>* GetBegin() const
+	Node* GetBegin() const
 	{
 		return begin;
 	}
 
-	Node<T>* GetEnd() const
+	Node* GetEnd() const
 	{
 		return end;
 	}
 
-	Node<T>* GetNextNode(const Node<T>* node) const
+	Node* GetNextNode(const Node* node) const
 	{
 		if (node == nullptr)
 		{
 			return nullptr;
 		}
 
-		Node<T>* currentNode = begin;
-		Node<T>* lastNode = nullptr;
+		Node* currentNode = begin;
+		Node* lastNode = nullptr;
 
 		while (lastNode != node && currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
 			lastNode = saveCurrentNode;
 		}
@@ -91,7 +87,7 @@ public:
 		return currentNode;
 	}
 
-	Node<T>* GetNextNode(Node<T>* fromNode, Node<T>* previousNode) const
+	Node* GetNextNode(Node* fromNode, Node* previousNode) const
 	{
 		if (fromNode == nullptr)
 		{
@@ -156,14 +152,14 @@ public:
 
 	void PrintFromStart() const
 	{
-		Node<T>* currentNode = begin;
-		Node<T>* lastTraversedNode = nullptr;
+		Node* currentNode = begin;
+		Node* lastTraversedNode = nullptr;
 
 		while (currentNode != nullptr)
 		{
 			std::cout << currentNode->data << ", ";
 
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(lastTraversedNode, currentNode->nodePointerXOR);
 			lastTraversedNode = saveCurrentNode;
 		}
@@ -173,7 +169,7 @@ public:
 
 	void Prepend(const T& data)
 	{
-		Node<T>* newNode = new Node<T>;
+		Node* newNode = new Node;
 		newNode->data = data;
 
 		if (begin == nullptr)
@@ -191,7 +187,7 @@ public:
 
 	void Append(const T& data)
 	{
-		Node<T>* newNode = new Node<T>;
+		Node* newNode = new Node;
 		newNode->data = data;
 		
 		if (end == nullptr)
@@ -207,7 +203,7 @@ public:
 		end = newNode;
 	}
 
-	bool InsertAfter(Node<T>* const insertAfterNode, const T& data)
+	bool InsertAfter(Node* const insertAfterNode, const T& data)
 	{
 		if (insertAfterNode == nullptr)
 		{
@@ -220,20 +216,20 @@ public:
 			return true;
 		}
 
-		Node<T>* currentNode = begin;
-		Node<T>* lastTraversed = nullptr;
+		Node* currentNode = begin;
+		Node* lastTraversed = nullptr;
 
 		// we need to change the xor data of the next as well, because we know we are inserting between two existing elements
 		while (lastTraversed != insertAfterNode && currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
 			lastTraversed = saveCurrentNode;
 		}
 
 		if (lastTraversed == insertAfterNode)
 		{
-			Node<T>* newNode = new Node<T>;
+			Node* newNode = new Node;
 			newNode->data = data;
 
 			// set the xor of the new node
@@ -252,7 +248,7 @@ public:
 		return false;
 	}
 	
-	bool InsertBefore(Node<T>* const beforeNode, const T& data)
+	bool InsertBefore(Node* const beforeNode, const T& data)
 	{
 		if (beforeNode == nullptr)
 		{
@@ -265,19 +261,19 @@ public:
 			return true;
 		}
 
-		Node<T>* currentNode = begin;
-		Node<T>* lastTraversed = nullptr;
+		Node* currentNode = begin;
+		Node* lastTraversed = nullptr;
 
 		while (currentNode != beforeNode && currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
 			lastTraversed = saveCurrentNode;
 		}
 
 		if (currentNode == beforeNode) // whether it is the end, we don't care
 		{
-			Node<T>* newNode = new Node<T>;
+			Node* newNode = new Node;
 			newNode->data = data;
 
 			// set the xor link of the new node
@@ -298,14 +294,14 @@ public:
 
 	void JoinTwoXORLists(const XORList& other)
 	{
-		Node<T>* otherCurrentNode = other.begin;
-		Node<T>* lastTraversedNode = nullptr;
+		Node* otherCurrentNode = other.begin;
+		Node* lastTraversedNode = nullptr;
 
 		while (otherCurrentNode != nullptr)
 		{
 			Append(otherCurrentNode->data);
 
-			Node<T>* saveCurrentNode = otherCurrentNode;
+			Node* saveCurrentNode = otherCurrentNode;
 			otherCurrentNode = XOR_OfPointers(lastTraversedNode, otherCurrentNode->nodePointerXOR);
 			lastTraversedNode = saveCurrentNode;
 		}
@@ -339,12 +335,12 @@ public:
 			return;
 		}
 
-		Node<T>* currentNode = begin;
-		Node<T>* lastTraversed = nullptr;
+		Node* currentNode = begin;
+		Node* lastTraversed = nullptr;
 
 		while (currentNode != end && currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
 			lastTraversed = saveCurrentNode;
 		}
@@ -374,7 +370,7 @@ public:
 
 		
 		// get the node after the begin
-		Node<T>* afterBeginNode = begin->nodePointerXOR;
+		Node* afterBeginNode = begin->nodePointerXOR;
 
 		afterBeginNode->nodePointerXOR = XOR_OfPointers(afterBeginNode->nodePointerXOR, begin);
 
@@ -385,7 +381,7 @@ public:
 		begin = afterBeginNode;
 	}
 
-	void DeleteBefore(Node<T>* beforeNode)
+	void DeleteBefore(Node* beforeNode)
 	{
 		if (beforeNode == nullptr)
 		{
@@ -403,14 +399,14 @@ public:
 			return;
 		}
 
-		Node<T>* currentNode = begin; // node that will be deleted
-		Node<T>* aboutToBeDeletedNode = nullptr;
-		Node<T>* nodeBeforeDeletedNode = nullptr;
+		Node* currentNode = begin; // node that will be deleted
+		Node* aboutToBeDeletedNode = nullptr;
+		Node* nodeBeforeDeletedNode = nullptr;
 
 		while (currentNode != beforeNode && currentNode != nullptr)
 		{
 			nodeBeforeDeletedNode = aboutToBeDeletedNode;
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(aboutToBeDeletedNode, currentNode->nodePointerXOR);
 			aboutToBeDeletedNode = saveCurrentNode;
 		}
@@ -429,7 +425,7 @@ public:
 		delete aboutToBeDeletedNode;
 	}
 
-	void DeleteAfter(Node<T>* afterNode)
+	void DeleteAfter(Node* afterNode)
 	{
 		if (afterNode == nullptr)
 		{
@@ -447,13 +443,13 @@ public:
 			return;
 		}
 
-		Node<T>* currentNode = begin;
-		Node<T>* lastTraversed = nullptr;
-		Node<T>* afterDeletedNode = nullptr;
+		Node* currentNode = begin;
+		Node* lastTraversed = nullptr;
+		Node* afterDeletedNode = nullptr;
 
 		while (lastTraversed != afterNode && currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(lastTraversed, currentNode->nodePointerXOR);
 			lastTraversed = saveCurrentNode;
 		}
@@ -475,7 +471,7 @@ public:
 		delete currentNode;
 	}
 
-	void DeleteNode(Node<T>* aboutToBeDeletedNode)
+	void DeleteNode(Node* aboutToBeDeletedNode)
 	{
 		if (aboutToBeDeletedNode == nullptr)
 		{
@@ -494,14 +490,14 @@ public:
 			return;
 		}
 
-		Node<T>* currentNode = begin; // node that will be deleted
-		Node<T>* nodeBeforeDeletedNode = nullptr;
-		Node<T>* nodeAfterDeletedNode = nullptr;
+		Node* currentNode = begin; // node that will be deleted
+		Node* nodeBeforeDeletedNode = nullptr;
+		Node* nodeAfterDeletedNode = nullptr;
 
 
 		while (currentNode != aboutToBeDeletedNode && currentNode != nullptr)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, nodeBeforeDeletedNode);
 			nodeBeforeDeletedNode = saveCurrentNode;
 		}
@@ -525,14 +521,14 @@ public:
 	}
 
 	// gets the first node, containing that element
-	Node<T>* GetNode(const T& element) const
+	Node* GetNode(const T& element) const
 	{
-		Node<T>* currentNode = begin;
-		Node<T>* lastNode = nullptr;
+		Node* currentNode = begin;
+		Node* lastNode = nullptr;
 
 		while (currentNode != nullptr && currentNode->data != element)
 		{
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
 			lastNode = saveCurrentNode;
 		}
@@ -542,8 +538,8 @@ public:
 
 	XORList GetAllNodes(const T& element) const
 	{
-		Node<T>* currentNode = begin;
-		Node<T>* lastNode = nullptr;
+		Node* currentNode = begin;
+		Node* lastNode = nullptr;
 
 		XORList result;
 
@@ -554,7 +550,7 @@ public:
 				result.Append(currentNode->data);
 			}
 
-			Node<T>* saveCurrentNode = currentNode;
+			Node* saveCurrentNode = currentNode;
 			currentNode = XOR_OfPointers(currentNode->nodePointerXOR, lastNode);
 			lastNode = saveCurrentNode;
 		}

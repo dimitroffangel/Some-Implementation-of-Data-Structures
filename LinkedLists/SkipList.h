@@ -1,5 +1,5 @@
-#ifndef XORLIST_H_GUARD
-#define XORLIST_H_GUARD
+#ifndef SKIPLIST_H_GUARD
+#define SKIPLIST_H_GUARD
 
 #include <iostream>
 #include <vector>

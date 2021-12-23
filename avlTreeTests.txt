@@ -1,2 +1,0 @@
-AVLTreeUnitTests::AddTest: Time difference = 660000[ns]
-AVLTreeUnitTests::GetTest: Time difference = 51500[ns]
