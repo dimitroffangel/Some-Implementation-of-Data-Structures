@@ -106,7 +106,7 @@ void UnitTests::TestDataStructures()
 		subLists.push_back(subList);
 	}
 
-	TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);
+	//TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);
 	//TestSkipList(50, elementsToAdd, subLists, elementstoAdd2);
 	TestSkipList(75, elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);

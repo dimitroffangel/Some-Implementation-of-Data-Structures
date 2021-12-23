@@ -4943,3 +4943,4 @@ SkipListUnitTests::RemoveThenAddEverythingRemoved: Time difference = 803203800[n
 SkipListUnitTests::RemoveTest: Time difference = 9170200[ns]
 SkipListUnitTests::RemoveGet: Time difference = 22613200[ns]
 SkipListUnitTests::RemoveThenAddEverythingRemoved: Time difference = 861167600[ns]
+SkipListUnitTests::AddTest: Time difference = 11979300[ns]

@@ -35,11 +35,7 @@ public:
 		srand(time(NULL));
 
 		m_FirstNode = new Node();
-
-		Node* newNode = new Node();
-		newNode->data = initialValue;
-		newNode->leftPointer = m_FirstNode;
-		m_FirstNode->rightPointer = newNode;
+		Add(initialValue);
 	}
 
 	SkipList(const float probabilityToIncreaseLevel)
@@ -48,6 +44,27 @@ public:
 		assert(probabilityToIncreaseLevel > MIN_RANDOM_INTERVAL && probabilityToIncreaseLevel < MAX_RANDOM_INTERVAL);
 
 		srand(time(NULL));
+	}
+
+	~SkipList()
+	{
+		Node* currentInitialNodeOnLevel = m_FirstNode;
+
+		while (currentInitialNodeOnLevel != nullptr)
+		{
+			Node* currentNodeOnLevel = currentInitialNodeOnLevel->rightPointer;
+
+			while (currentNodeOnLevel != nullptr)
+			{
+				Node* nodeToDelete = currentNodeOnLevel;
+				currentNodeOnLevel = currentNodeOnLevel->rightPointer;
+				delete nodeToDelete;
+			}
+
+			Node* initialNodeOnLevel = currentNodeOnLevel;
+			currentInitialNodeOnLevel = currentInitialNodeOnLevel->downPointer;
+			delete initialNodeOnLevel;
+		}
 	}
 
 	bool Add(const T& value)

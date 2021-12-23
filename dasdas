@@ -1,0 +1,216 @@
+[1mdiff --git a/LinkedLists/SkipList.h b/LinkedLists/SkipList.h[m
+[1mindex 505f1eb..863ad94 100644[m
+[1m--- a/LinkedLists/SkipList.h[m
+[1m+++ b/LinkedLists/SkipList.h[m
+[36m@@ -35,11 +35,7 @@[m [mpublic:[m
+ 		srand(time(NULL));[m
+ [m
+ 		m_FirstNode = new Node();[m
+[31m-[m
+[31m-		Node* newNode = new Node();[m
+[31m-		newNode->data = initialValue;[m
+[31m-		newNode->leftPointer = m_FirstNode;[m
+[31m-		m_FirstNode->rightPointer = newNode;[m
+[32m+[m		[32mAdd(initialValue);[m
+ 	}[m
+ [m
+ 	SkipList(const float probabilityToIncreaseLevel)[m
+[36m@@ -50,6 +46,27 @@[m [mpublic:[m
+ 		srand(time(NULL));[m
+ 	}[m
+ [m
+[32m+[m	[32m~SkipList()[m
+[32m+[m	[32m{[m
+[32m+[m		[32mNode* currentInitialNodeOnLevel = m_FirstNode;[m
+[32m+[m
+[32m+[m		[32mwhile (currentInitialNodeOnLevel != nullptr)[m
+[32m+[m		[32m{[m
+[32m+[m			[32mNode* currentNodeOnLevel = currentInitialNodeOnLevel->rightPointer;[m
+[32m+[m
+[32m+[m			[32mwhile (currentNodeOnLevel != nullptr)[m
+[32m+[m			[32m{[m
+[32m+[m				[32mNode* nodeToDelete = currentNodeOnLevel;[m
+[32m+[m				[32mcurrentNodeOnLevel = currentNodeOnLevel->rightPointer;[m
+[32m+[m				[32mdelete nodeToDelete;[m
+[32m+[m			[32m}[m
+[32m+[m
+[32m+[m			[32mNode* initialNodeOnLevel = currentNodeOnLevel;[m
+[32m+[m			[32mcurrentInitialNodeOnLevel = currentInitialNodeOnLevel->downPointer;[m
+[32m+[m			[32mdelete initialNodeOnLevel;[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m
+ 	bool Add(const T& value)[m
+ 	{[m
+ 		Node* adjacentLeftNode = TryFindingPreviousElement(value);[m
+[1mdiff --git a/UnitTests.cpp b/UnitTests.cpp[m
+[1mindex f2ab97a..72fff0d 100644[m
+[1m--- a/UnitTests.cpp[m
+[1m+++ b/UnitTests.cpp[m
+[36m@@ -106,7 +106,7 @@[m [mvoid UnitTests::TestDataStructures()[m
+ 		subLists.push_back(subList);[m
+ 	}[m
+ [m
+[31m-	TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);[m
+[32m+[m	[32m//TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);[m
+ 	//TestSkipList(50, elementsToAdd, subLists, elementstoAdd2);[m
+ 	TestSkipList(75, elementsToAdd, subLists, elementstoAdd2);[m
+ 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);[m
+[1mdiff --git a/skipListTests.txt b/skipListTests.txt[m
+[1mindex a3d6bfc..1b22fc7 100644[m
+[1m--- a/skipListTests.txt[m
+[1m+++ b/skipListTests.txt[m
+[36m@@ -4943,3 +4943,4 @@[m [mSkipListUnitTests::RemoveThenAddEverythingRemoved: Time difference = 803203800[n[m
+ SkipListUnitTests::RemoveTest: Time difference = 9170200[ns][m
+ SkipListUnitTests::RemoveGet: Time difference = 22613200[ns][m
+ SkipListUnitTests::RemoveThenAddEverythingRemoved: Time difference = 861167600[ns][m
+[32m+[m[32mSkipListUnitTests::AddTest: Time difference = 11979300[ns][m
+[1mdiff --git a/skipListTestsOriginal.txt b/skipListTestsOriginal.txt[m
+[1mindex 9da409b..cef2084 100644[m
+[1m--- a/skipListTestsOriginal.txt[m
+[1m+++ b/skipListTestsOriginal.txt[m
+[36m@@ -431,3 +431,2683 @@[m [mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 275[m
+ SkipListOriginalUnitTests::RemoveTest: Time difference = 1589900[ns][m
+ SkipListOriginalUnitTests::RemoveGet: Time difference = 2506100[ns][m
+ SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 3326300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::AddTest: Time difference = 27882100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::GetTest: Time difference = 18019470700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::AddRemoveImmediately: Time difference = 60473300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::AddThenRemoveEverythingAdded: Time difference = 56082700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::AddGet: Time difference = 54790300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::AddGetImmediately: Time difference = 55738200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::AddRemoveGet: Time difference = 76895800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13215500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26479300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29279800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14461100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26900100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26779900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 30703400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 24526800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29013800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14669600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26482300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29148600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14301000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 27471200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26973100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13321700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25366500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 28288700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 15810200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 24888600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29395300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 15155900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 28528800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 31004700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13516300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26024400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29336300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 16041100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 28064800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 30748400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13819900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25890200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 27362400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13544200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 23864000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26160300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 12593800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 23515300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26362100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13595500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 40385900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29101800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14199300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26185500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26407500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13896000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25983400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 28888900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14092600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 23802800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 28098700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14060500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26279700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29269200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13921700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 23913700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 28505500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14339500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 24827200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29010600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 15261500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26892500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26329300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14012500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25890000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29439000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 12518000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25214600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 25807700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13142700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25159300[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26397400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 12960600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 24831000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26297000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 12897800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 24215400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26220700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13289500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 25873800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 35110500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 16389500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26698100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 27412900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13212200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 24868400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29691600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 14569200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26916200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 29921200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 13031700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26390600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 27613200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 12770000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 23901900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 26262400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 29684100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 26331600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 28242200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 25295500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 44678700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 34603100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 21398800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 37762700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 36271100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 20663000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 40556600[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 35812400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 20403900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 38711500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 33580900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 20549800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 37916400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 34089000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 23262000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 38166700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 35020400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 20364000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 38979200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 33684400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 20513800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 39191900[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 33036100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 20348500[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 42421100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 36866700[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 21354000[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 39220800[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 33307200[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 19273400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveGet: Time difference = 39551100[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: Time difference = 33369400[ns][m
+[32m+[m[32mSkipListOriginalUnitTests::RemoveTest: Time difference = 18749700[ns][m
+[32m+[
