@@ -554,6 +554,26 @@ private:
 		}
 	}
 
+	bool ContainsNode(Node<T>* treeNode, const T& x) const
+	{
+		if (treeNode == nullptr)
+		{
+			return false;
+		}
+
+		if (x == treeNode->data)
+		{
+			return true;
+		}
+
+		if (x < treeNode->data)
+		{
+			return ContainsNode(treeNode->left, x);
+		}
+
+		return ContainsNode(treeNode->right, x);
+	}
+
 public:
 	AVLTree()
 	{
@@ -608,6 +628,11 @@ public:
 	void Print() const
 	{
 		PrintFromNode(root);
+	}
+
+	bool ContainsNode(const T& x) const
+	{
+		return ContainsNode(root, x);
 	}
 
 	void AddNode(const T& value)

@@ -48,6 +48,9 @@
     <ClCompile Include="SkipListOriginalUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AVLTreeUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedLists\XORList.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="SkipListOriginal.h">
       <Filter>Header Files\LinkedLists</Filter>
+    </ClInclude>
+    <ClInclude Include="AVLTreeUnitTests.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

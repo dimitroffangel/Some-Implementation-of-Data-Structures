@@ -109,12 +109,6 @@ public:
 			previousNodes[currentIteratedLevel]->nextNodes[currentIteratedLevel] = newNode;
 		}
 
-		std::vector<Node*> foo;
-		for (size_t i = 0; i <= currentLevel; ++i)
-		{
-			foo.push_back(newNode->nextNodes[i]);
-		}
-
 		return true;
 	}
 
@@ -155,7 +149,6 @@ public:
 			return false;
 		}
 
-		std::vector<Node*> foo;
 		for (size_t currentIteratedLevel = 0; currentIteratedLevel <= m_CurrentNumberOfLevels; ++currentIteratedLevel)
 		{
 			if (previousNodes[currentIteratedLevel]->nextNodes == nullptr ||
@@ -168,7 +161,6 @@ public:
 			previousNodes[currentIteratedLevel]->nextNodes[currentIteratedLevel] = 
 				nodeToBeDeleted->nextNodes[currentIteratedLevel];
 
-			foo.push_back(left);
 		}
 
 		while (m_CurrentNumberOfLevels > 0 && m_FirstNode->nextNodes[m_CurrentNumberOfLevels] == nodeToBeDeleted)

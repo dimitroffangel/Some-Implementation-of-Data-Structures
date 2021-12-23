@@ -6,6 +6,7 @@
 #include "VectorUnitTests.h"
 #include "LinkedListUnitTests.h"
 #include "RedBlackTreeUnitTests.h"
+#include "AVLTreeUnitTests.h"
 
 std::vector<int> UnitTests::GenerateIncreasingList(const size_t sizeOfLists, int from, int to)
 {
@@ -109,6 +110,7 @@ void UnitTests::TestDataStructures()
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
 	TestLinkedList(elementsToAdd, subLists, elementstoAdd2);
 	TestRedBlackTree(elementsToAdd, subLists, elementstoAdd2);
+	TestAVLTree(elementsToAdd, subLists, elementstoAdd2);
 }
 
 void UnitTests::TestSkipListOriginal(const size_t probability, const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
@@ -217,5 +219,26 @@ void UnitTests::TestRedBlackTree(const std::vector<int>& elementsToAdd, const st
 		RedBlackTreeUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
 		RedBlackTreeUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
 		RedBlackTreeUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+	}
+}
+
+void UnitTests::TestAVLTree(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+{
+	const std::string filePath = "./avlTreeTests.txt";
+
+	AVLTreeUnitTests::AddTest({}, elementsToAdd, filePath);
+
+	AVLTreeUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
+	AVLTreeUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
+	AVLTreeUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
+	AVLTreeUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
+	AVLTreeUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
+	AVLTreeUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+
+	for (size_t i = 0; i < subLists.size(); ++i)
+	{
+		AVLTreeUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
+		AVLTreeUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
+		AVLTreeUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
 	}
 }
