@@ -9,15 +9,15 @@ struct UnitTests
 	static const size_t TO_RANDOM_INTERVAL = 1000000000;
 
 	static std::vector<int> GenerateIncreasingList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
-	static std::vector<int> GenerateDecreasingList(const size_t sizeOfLists);
+	static std::vector<int> GenerateDecreasingList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
 	static std::vector<int> GenerateSomeList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
 	// for each ai in list ai <= a(i+1) && ai >= a(i-1) for existent adjacent elements
-	static std::vector<int> GenerateIncreasingDecreasingList(const size_t sizeOfLists);
+	static std::vector<int> GenerateIncreasingDecreasingList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
 
 	static void TestDataStructures();
 	
-	static void TestSkipListOriginal(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
-	static void TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
+	static void TestSkipListOriginal(size_t probability, const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
+	static void TestSkipList(size_t probability, const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
 	static void TestVectorList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
 	static void TestLinkedList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);
 	static void TestRedBlackTree(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2);

@@ -7,6 +7,38 @@
 #include "LinkedListUnitTests.h"
 #include "RedBlackTreeUnitTests.h"
 
+std::vector<int> UnitTests::GenerateIncreasingList(const size_t sizeOfLists, int from, int to)
+{
+	std::vector<int> result;
+
+	const int initialElement = DataStructureHelper::GenerateRandomNumber(from, to);
+	result.push_back(initialElement);
+
+	for (size_t i = 1; i < sizeOfLists; ++i)
+	{
+		const int element = DataStructureHelper::GenerateRandomNumber(result[i - 1], to);
+		result.push_back(element);
+	}
+
+	return result;
+}
+
+std::vector<int> UnitTests::GenerateDecreasingList(const size_t sizeOfLists, int from, int to)
+{
+	std::vector<int> result;
+
+	const int initialElement = DataStructureHelper::GenerateRandomNumber(from, to);
+	result.push_back(initialElement);
+
+	for (size_t i = 1; i < sizeOfLists; ++i)
+	{
+		const int element = DataStructureHelper::GenerateRandomNumber(from, result[i - 1]);
+		result.push_back(element);
+	}
+
+	return result;
+}
+
 std::vector<int> UnitTests::GenerateSomeList(const size_t sizeOfLists, int from, int to)
 {
 	std::vector<int> result;
@@ -20,10 +52,37 @@ std::vector<int> UnitTests::GenerateSomeList(const size_t sizeOfLists, int from,
 	return result;
 }
 
+std::vector<int> UnitTests::GenerateIncreasingDecreasingList(const size_t sizeOfLists, int from, int to)
+{
+	std::vector<int> result;
+
+	const int initialElement = DataStructureHelper::GenerateRandomNumber(from, to);
+	result.push_back(initialElement);
+	
+	for (size_t i = 1; i < sizeOfLists; ++i)
+	{
+		
+		if (i % 2 == 0)
+		{
+			const int element = DataStructureHelper::GenerateRandomNumber(from, result[i - 1]);
+			result.push_back(element);
+		}
+
+		else
+		{
+			const int element = DataStructureHelper::GenerateRandomNumber(result[i - 1], to);
+			result.push_back(element);
+		}
+		
+	}
+
+	return result;
+}
+
 void UnitTests::TestDataStructures()
 {
-	std::vector<int> elementsToAdd = GenerateSomeList(1000);
-	std::vector<int> elementstoAdd2 = GenerateSomeList(1000);
+	std::vector<int> elementsToAdd = GenerateIncreasingList(1000);
+	std::vector<int> elementstoAdd2 = GenerateIncreasingList(1000);
 
 	std::vector<std::vector<int>> subLists;
 	const size_t sizeOfSubList = DataStructureHelper::GenerateRandomNumber(0, elementsToAdd.size());
@@ -45,53 +104,53 @@ void UnitTests::TestDataStructures()
 		subLists.push_back(subList);
 	}
 
-	TestSkipListOriginal(elementsToAdd, subLists, elementstoAdd2);
-	TestSkipList(elementsToAdd, subLists, elementstoAdd2);
+	TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);
+	TestSkipList(50, elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);
 	TestLinkedList(elementsToAdd, subLists, elementstoAdd2);
 	TestRedBlackTree(elementsToAdd, subLists, elementstoAdd2);
 }
 
-void UnitTests::TestSkipListOriginal(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+void UnitTests::TestSkipListOriginal(const size_t probability, const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
 {
 	const std::string filePath = "./skipListTestsOriginal.txt";
 
-	SkipListOriginalUnitTests::AddTest({}, elementsToAdd, filePath);
+	SkipListOriginalUnitTests::AddTest(probability, {}, elementsToAdd, filePath);
 
-	SkipListOriginalUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
-	SkipListOriginalUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
-	SkipListOriginalUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
-	SkipListOriginalUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
-	SkipListOriginalUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
-	SkipListOriginalUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::GetTest(probability, elementsToAdd, elementsToAdd, filePath);
+	SkipListOriginalUnitTests::AddRemoveImmediately(probability,elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddThenRemoveEverythingAdded(probability,elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddGet(probability, elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddGetImmediately(probability, elementsToAdd, elementsToAdd2, filePath);
+	SkipListOriginalUnitTests::AddRemoveGet(probability,elementsToAdd, elementsToAdd2, filePath);
 
 	for (size_t i = 0; i < subLists.size(); ++i)
 	{
-		SkipListOriginalUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
-		SkipListOriginalUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
-		SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+		SkipListOriginalUnitTests::RemoveTest(probability, elementsToAdd, subLists[i], filePath);
+		SkipListOriginalUnitTests::RemoveGet(probability, elementsToAdd, subLists[i], filePath);
+		SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved(probability, elementsToAdd, subLists[i], filePath);
 	}
 
 }
 
-void UnitTests::TestSkipList(const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
+void UnitTests::TestSkipList(size_t probability, const std::vector<int>& elementsToAdd, const std::vector<std::vector<int>>& subLists, const std::vector<int>& elementsToAdd2)
 {
 	const std::string filePath = "./skipListTests.txt";
 
-	SkipListUnitTests::AddTest({}, elementsToAdd, filePath);
+	SkipListUnitTests::AddTest(probability, {}, elementsToAdd, filePath);
 	
-	SkipListUnitTests::GetTest(elementsToAdd, elementsToAdd, filePath);
-	SkipListUnitTests::AddRemoveImmediately(elementsToAdd, elementsToAdd2, filePath);
-	SkipListUnitTests::AddThenRemoveEverythingAdded(elementsToAdd, elementsToAdd2, filePath);
-	SkipListUnitTests::AddGet(elementsToAdd, elementsToAdd2, filePath);
-	SkipListUnitTests::AddGetImmediately(elementsToAdd, elementsToAdd2, filePath);
-	SkipListUnitTests::AddRemoveGet(elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::GetTest(probability, elementsToAdd, elementsToAdd, filePath);
+	SkipListUnitTests::AddRemoveImmediately(probability, elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddThenRemoveEverythingAdded(probability, elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddGet(probability, elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddGetImmediately(probability, elementsToAdd, elementsToAdd2, filePath);
+	SkipListUnitTests::AddRemoveGet(probability, elementsToAdd, elementsToAdd2, filePath);
 
 	for (size_t i = 0; i < subLists.size(); ++i)
 	{
-		SkipListUnitTests::RemoveTest(elementsToAdd, subLists[i], filePath);
-		SkipListUnitTests::RemoveGet(elementsToAdd, subLists[i], filePath);
-		SkipListUnitTests::RemoveThenAddEverythingRemoved(elementsToAdd, subLists[i], filePath);
+		SkipListUnitTests::RemoveTest(probability, elementsToAdd, subLists[i], filePath);
+		SkipListUnitTests::RemoveGet(probability, elementsToAdd, subLists[i], filePath);
+		SkipListUnitTests::RemoveThenAddEverythingRemoved(probability, elementsToAdd, subLists[i], filePath);
 	}
 
 }

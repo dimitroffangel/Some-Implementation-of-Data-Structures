@@ -3,13 +3,13 @@
 #include <chrono>
 #include <fstream>
 
-SkipList<int> SkipListUnitTests::AddTest(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToAdd, const std::string& filePath)
+SkipList<int> SkipListUnitTests::AddTest(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToAdd, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::AddTest: ";
 	outputFile << "SkipListUnitTests::AddTest: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -30,13 +30,13 @@ SkipList<int> SkipListUnitTests::AddTest(const std::vector<int>& elementsToHaveI
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::RemoveTest(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToRemove, const std::string& filePath)
+SkipList<int> SkipListUnitTests::RemoveTest(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToRemove, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::RemoveTest: ";
 	outputFile << "SkipListUnitTests::RemoveTest: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -57,13 +57,13 @@ SkipList<int> SkipListUnitTests::RemoveTest(const std::vector<int>& elementsToHa
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::GetTest(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToGet, const std::string& filePath)
+SkipList<int> SkipListUnitTests::GetTest(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToGet, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::GetTest: ";
 	outputFile << "SkipListUnitTests::GetTest: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -84,13 +84,13 @@ SkipList<int> SkipListUnitTests::GetTest(const std::vector<int>& elementsToHaveI
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::AddRemoveImmediately(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::AddRemoveImmediately(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::AddRemoveImmediately: ";
 	outputFile << "SkipListUnitTests::AddRemoveImmediately: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -112,13 +112,13 @@ SkipList<int> SkipListUnitTests::AddRemoveImmediately(const std::vector<int>& el
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::AddThenRemoveEverythingAdded(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::AddThenRemoveEverythingAdded(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::AddThenRemoveEverythingAdded: ";
 	outputFile << "SkipListUnitTests::AddThenRemoveEverythingAdded: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -144,13 +144,13 @@ SkipList<int> SkipListUnitTests::AddThenRemoveEverythingAdded(const std::vector<
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::AddGet(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::AddGet(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::AddGet: ";
 	outputFile << "SkipListUnitTests::AddGet: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -176,13 +176,13 @@ SkipList<int> SkipListUnitTests::AddGet(const std::vector<int>& elementsToHaveIn
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::AddGetImmediately(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::AddGetImmediately(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::AddGetImmediately: ";
 	outputFile << "SkipListUnitTests::AddGetImmediately: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -204,13 +204,13 @@ SkipList<int> SkipListUnitTests::AddGetImmediately(const std::vector<int>& eleme
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::RemoveGet(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::RemoveGet(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::RemoveGet: ";
 	outputFile << "SkipListUnitTests::RemoveGet: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -233,13 +233,13 @@ SkipList<int> SkipListUnitTests::RemoveGet(const std::vector<int>& elementsToHav
 
 }
 
-SkipList<int> SkipListUnitTests::RemoveAddImmediately(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::RemoveAddImmediately(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::RemoveThenAddEverythingRemoved: ";
 	outputFile << "SkipListUnitTests::RemoveThenAddEverythingRemoved: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -261,13 +261,13 @@ SkipList<int> SkipListUnitTests::RemoveAddImmediately(const std::vector<int>& el
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::RemoveThenAddEverythingRemoved(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::RemoveThenAddEverythingRemoved(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::RemoveThenAddEverythingRemoved: ";
 	outputFile << "SkipListUnitTests::RemoveThenAddEverythingRemoved: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
@@ -293,13 +293,13 @@ SkipList<int> SkipListUnitTests::RemoveThenAddEverythingRemoved(const std::vecto
 	return skipList;
 }
 
-SkipList<int> SkipListUnitTests::AddRemoveGet(const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+SkipList<int> SkipListUnitTests::AddRemoveGet(size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListUnitTests::AddRemoveGet: ";
 	outputFile << "SkipListUnitTests::AddRemoveGet: ";
 
-	SkipList<int> skipList(50);
+	SkipList<int> skipList(probability);
 
 	for (const int elementToHave : elementsToHaveInitially)
 	{
