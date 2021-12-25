@@ -83,8 +83,8 @@ std::vector<int> UnitTests::GenerateIncreasingDecreasingList(const size_t sizeOf
 
 void UnitTests::TestDataStructures()
 {
-	std::vector<int> elementsToAdd = GenerateIncreasingList(10000);
-	std::vector<int> elementstoAdd2 = GenerateIncreasingList(10000);
+	std::vector<int> elementsToAdd = GenerateIncreasingList(1000);
+	std::vector<int> elementstoAdd2 = GenerateIncreasingList(1000);
 
 	std::vector<std::vector<int>> subLists;
 	const size_t sizeOfSubList = DataStructureHelper::GenerateRandomNumber(0, elementsToAdd.size());
@@ -106,7 +106,7 @@ void UnitTests::TestDataStructures()
 		subLists.push_back(subList);
 	}
 
-	//TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);
+	TestSkipListOriginal(50, elementsToAdd, subLists, elementstoAdd2);
 	//TestSkipList(50, elementsToAdd, subLists, elementstoAdd2);
 	TestSkipList(75, elementsToAdd, subLists, elementstoAdd2);
 	TestVectorList(elementsToAdd, subLists, elementstoAdd2);

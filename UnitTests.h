@@ -11,7 +11,6 @@ struct UnitTests
 	static std::vector<int> GenerateIncreasingList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
 	static std::vector<int> GenerateDecreasingList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
 	static std::vector<int> GenerateSomeList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
-	// for each ai in list ai <= a(i+1) && ai >= a(i-1) for existent adjacent elements
 	static std::vector<int> GenerateIncreasingDecreasingList(const size_t sizeOfLists, int from = FROM_RANDOM_INTERVAL, int to = TO_RANDOM_INTERVAL);
 
 	static void TestDataStructures();

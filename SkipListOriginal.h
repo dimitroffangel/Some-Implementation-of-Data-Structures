@@ -43,6 +43,30 @@ public:
 		srand(time(NULL));
 	}
 
+	~SkipListOriginal()
+	{
+		if (m_FirstNode == nullptr)
+		{
+			return;
+		}
+
+		Node* currentNode = m_FirstNode->nextNodes[0];
+		
+		while (currentNode != nullptr)
+		{
+			Node* previousNode = currentNode;
+
+			currentNode = currentNode->nextNodes[0];
+
+			delete[] previousNode->nextNodes;
+			delete previousNode;
+		}
+
+		delete[] m_FirstNode->nextNodes;
+		delete m_FirstNode;
+		m_FirstNode = nullptr;
+	}
+
 	bool Add(const T& value)
 	{
 		if (m_FirstNode == nullptr)

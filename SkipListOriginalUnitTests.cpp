@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-SkipListOriginal<int> SkipListOriginalUnitTests::AddTest(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToAdd, const std::string& filePath)
+void SkipListOriginalUnitTests::AddTest(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToAdd, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::AddTest: ";
@@ -28,10 +28,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddTest(const size_t probabilit
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::RemoveTest(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToRemove, const std::string& filePath)
+void  SkipListOriginalUnitTests::RemoveTest(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToRemove, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::RemoveTest: ";
@@ -55,10 +54,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::RemoveTest(const size_t probabi
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::GetTest(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToGet, const std::string& filePath)
+void SkipListOriginalUnitTests::GetTest(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& elementsToGet, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::GetTest: ";
@@ -82,11 +80,8 @@ SkipListOriginal<int> SkipListOriginalUnitTests::GetTest(const size_t probabilit
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
-
-	return skipList;
 }
-
-SkipListOriginal<int> SkipListOriginalUnitTests::AddRemoveImmediately(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void SkipListOriginalUnitTests::AddRemoveImmediately(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::AddRemoveImmediately: ";
@@ -111,10 +106,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddRemoveImmediately(const size
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::AddThenRemoveEverythingAdded(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void  SkipListOriginalUnitTests::AddThenRemoveEverythingAdded(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::AddThenRemoveEverythingAdded: ";
@@ -143,10 +137,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddThenRemoveEverythingAdded(co
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::AddGet(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void  SkipListOriginalUnitTests::AddGet(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::AddGet: ";
@@ -175,10 +168,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddGet(const size_t probability
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::AddGetImmediately(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void  SkipListOriginalUnitTests::AddGetImmediately(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::AddGetImmediately: ";
@@ -203,10 +195,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddGetImmediately(const size_t 
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::RemoveGet(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void  SkipListOriginalUnitTests::RemoveGet(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::RemoveGet: ";
@@ -231,11 +222,10 @@ SkipListOriginal<int> SkipListOriginalUnitTests::RemoveGet(const size_t probabil
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::RemoveAddImmediately(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void SkipListOriginalUnitTests::RemoveAddImmediately(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: ";
@@ -260,10 +250,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::RemoveAddImmediately(const size
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved: ";
@@ -292,10 +281,9 @@ SkipListOriginal<int> SkipListOriginalUnitTests::RemoveThenAddEverythingRemoved(
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
 
-SkipListOriginal<int> SkipListOriginalUnitTests::AddRemoveGet(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
+void SkipListOriginalUnitTests::AddRemoveGet(const size_t probability, const std::vector<int>& elementsToHaveInitially, const std::vector<int>& inputContainer, const std::string& filePath)
 {
 	std::ofstream outputFile(filePath, std::ofstream::app);
 	std::cout << "SkipListOriginalUnitTests::AddRemoveGet: ";
@@ -329,5 +317,4 @@ SkipListOriginal<int> SkipListOriginalUnitTests::AddRemoveGet(const size_t proba
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 	outputFile << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << '\n';
 
-	return skipList;
 }
